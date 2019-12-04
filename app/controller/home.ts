@@ -8,6 +8,8 @@ function validate() {
     const oldAsyncFunc = descriptor.value;
     descriptor.value = async function(ctx: Context) {
       console.info('validate in', propertyKey, ctx.app.config.HOME);
+      console.info('validate in', propertyKey, ctx.app.config.logger.aaaa); // 这个关联不了
+      console.info('validate in', propertyKey, ctx.app.config.test2.aa); // 这个可以关联
       await oldAsyncFunc.call(this, ctx);
     };
   };

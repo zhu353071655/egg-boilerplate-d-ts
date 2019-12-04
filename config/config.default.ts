@@ -2,8 +2,27 @@
 
 import { EggAppConfig, PowerPartial } from 'egg';
 
+export interface BizConfig {
+  sourceUrl: string;
+  news: {
+    pageSize: number;
+    serverUrl: string;
+  };
+  logger: {
+    level?: 'info' | 'all';
+    aaaa: boolean
+  };
+  test: string,
+  test2: {
+    aa: boolean
+  }
+  local: {
+    msg: number
+  }
+}
+
 export default function(appInfo: EggAppConfig) {
-  const config = {} as PowerPartial<EggAppConfig>;
+  const config = {} as PowerPartial<EggAppConfig> & BizConfig;
 
   config.keys = appInfo.name + '123123';
 
@@ -31,20 +50,31 @@ export default function(appInfo: EggAppConfig) {
       db: 0,
     },
   };
+  config.test = 'xxxx'
+  config.test2 = {
+    aa: true
+  }
+  config.logger = {
+    level: undefined,
+    aaaa: true
+  }
+  config.local = {
+    msg: 111
+  }
+  return config
+  // const bizConfig = {
+  //   local: {
+  //     msg: 'local',
+  //   },
 
-  const bizConfig = {
-    local: {
-      msg: 'local',
-    },
+  //   uuid: {
+  //     name: 'ebuuid',
+  //     maxAge: 1000 * 60 * 60 * 24 * 365 * 10,
+  //   },
+  // };
 
-    uuid: {
-      name: 'ebuuid',
-      maxAge: 1000 * 60 * 60 * 24 * 365 * 10,
-    },
-  };
-
-  return {
-    ...config as {},
-    ...bizConfig,
-  };
+  // return {
+  //   ...config as {},
+  //   ...bizConfig,
+  // };
 }
